@@ -77,6 +77,15 @@ One of the most interesting parts of this project is the email system:
 * **Hosting:** Firebase Hosting
 * **Analytics:** Power BI
 
+## Sample Dataset
+
+A sanitized sample dataset is included in the repository to demonstrate the structure of the system's database.
+
+📂 File: `assets/sample-database.csv`
+
+This dataset represents how instructor availability data is stored and processed in the system.
+
+> Note: The production database is hosted in Google Sheets and is not publicly accessible due to data privacy and institutional restrictions.
 
 ## Why this project matters?
 
@@ -199,20 +208,9 @@ instructor-ui/index.html
 - Improved UI/UX
 - Advanced analytics
 
-
-## References
-Google Cloud: https://cloud.google.com/
-Gmail API: https://developers.google.com/gmail/api
-Google Sheets API: https://developers.google.com/sheets/api
-Firebase: https://firebase.google.com/
-Power BI: https://powerbi.microsoft.com/
-AMP Email: https://amp.dev/documentation/guides-and-tutorials/learn/email/
-Node.js: https://nodejs.org/
-
+## Authors
 
 Overall, this project transformed a manual, repetitive process into an **automated, trackable, and scalable system**. It was a great opportunity to apply both technical and design thinking skills to a practical university use case.
 
-
-## Authors
 - MANJUMANEY CHOODALI MANEY
 - STELIN MACWAN
