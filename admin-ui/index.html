@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Panel - Instructor Availability System</title>
+  <style>
+    :root {
+      --primary: #c62828;
+      --primary-dark: #a61e1e;
+      --primary-light: #fdecec;
+      --primary-soft: #fff5f5;
+      --border: #f3c9c9;
+      --text: #2b2b2b;
+      --muted: #777;
+      --white: #ffffff;
+      --shadow: 0 10px 30px rgba(198, 40, 40, 0.08);
+      --radius: 18px;
+      --radius-sm: 12px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background:
+        radial-gradient(circle at top right, #ffe3e3 0%, transparent 22%),
+        linear-gradient(180deg, #fffdfd 0%, #fff6f6 100%);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    .app-shell {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      min-height: 100vh;
+    }
+
+    .sidebar {
+      background: var(--white);
+      border-right: 1px solid #f1d6d6;
+      padding: 28px 18px;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 30px;
+      padding: 8px 10px;
+    }
+
+    .brand-logo {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--primary), #e57373);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 18px;
+      box-shadow: 0 8px 18px rgba(198, 40, 40, 0.18);
+    }
+
+    .brand-text h1 {
+      margin: 0;
+      font-size: 18px;
+      line-height: 1.2;
+    }
+
+    .brand-text p {
+      margin: 3px 0 0;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .nav-title {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #999;
+      margin: 18px 10px 10px;
+    }
+
+    .nav-btn {
+      display: block;
+      width: 100%;
+      border: none;
+      background: transparent;
+      text-align: left;
+      padding: 14px 14px;
+      border-radius: 12px;
+      margin-bottom: 8px;
+      font-size: 15px;
+      font-weight: 600;
+      color: #444;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .nav-btn:hover,
+    .nav-btn.active {
+      background: var(--primary-light);
+      color: var(--primary);
+    }
+
+    .content {
+      padding: 32px;
+    }
+
+    .top-header {
+      background: rgba(255, 255, 255, 0.78);
+      border: 1px solid #f4d7d7;
+      backdrop-filter: blur(8px);
+      border-radius: 20px;
+      padding: 24px 26px;
+      box-shadow: var(--shadow);
+      margin-bottom: 24px;
+    }
+
+    .top-header h2 {
+      margin: 0;
+      font-size: 28px;
+    }
+
+    .top-header p {
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .quick-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 26px;
+    }
+
+    .mini-card {
+      background: var(--white);
+      border: 1px solid #f3d9d9;
+      border-radius: 18px;
+      padding: 18px;
+      box-shadow: var(--shadow);
+    }
+
+    .mini-card .small {
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    .mini-card .big {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .section {
+      display: none;
+    }
+
+    .section.active {
+      display: block;
+    }
+
+    .card {
+      background: var(--white);
+      border: 1px solid #f2d8d8;
+      border-radius: var(--radius);
+      padding: 26px;
+      box-shadow: var(--shadow);
+      margin-bottom: 20px;
+    }
+
+    .card h3 {
+      margin-top: 0;
+      margin-bottom: 8px;
+      font-size: 22px;
+      color: var(--primary);
+    }
+
+    .card-subtext {
+      margin-bottom: 22px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .row {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 4px;
+    }
+
+    .row>div {
+      flex: 1;
+    }
+
+    label {
+      display: block;
+      margin-top: 12px;
+      margin-bottom: 8px;
+      font-weight: 700;
+      font-size: 14px;
+      color: #444;
+    }
+
+    input,
+    select {
+      width: 100%;
+      padding: 13px 14px;
+      border-radius: 12px;
+      border: 1px solid #e8caca;
+      background: #fffdfd;
+      font-size: 14px;
+      outline: none;
+      transition: 0.2s ease;
+    }
+
+    input:focus,
+    select:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 4px rgba(198, 40, 40, 0.09);
+      background: white;
+    }
+
+    .button-row {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-top: 18px;
+    }
+
+    button.action-btn {
+      border: none;
+      padding: 12px 18px;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .primary-btn {
+      background: var(--primary);
+      color: white;
+    }
+
+    .primary-btn:hover {
+      background: var(--primary-dark);
+      transform: translateY(-1px);
+    }
+
+    .secondary-btn {
+      background: var(--primary-light);
+      color: var(--primary);
+      border: 1px solid #f0bebe;
+    }
+
+    .secondary-btn:hover {
+      background: #fadede;
+    }
+
+    .status {
+      margin-top: 16px;
+      padding: 14px 16px;
+      border-radius: 12px;
+      background: var(--primary-soft);
+      border: 1px solid #f3d0d0;
+      color: #7a2d2d;
+      font-size: 14px;
+      line-height: 1.4;
+      word-break: break-word;
+    }
+
+    .dashboard-box {
+      background: linear-gradient(135deg, #fff7f7 0%, #fdeaea 100%);
+      border: 1px solid #f0caca;
+      border-radius: 18px;
+      padding: 28px;
+      text-align: center;
+    }
+
+    .dashboard-box h4 {
+      margin: 0 0 10px;
+      font-size: 24px;
+      color: var(--primary);
+    }
+
+    .dashboard-box p {
+      margin: 0 0 18px;
+      color: #6e6e6e;
+      font-size: 15px;
+    }
+
+    .dashboard-btn {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 14px 24px;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .dashboard-btn:hover {
+      background: var(--primary-dark);
+      transform: translateY(-1px);
+    }
+
+    @media (max-width: 950px) {
+      .app-shell {
+        grid-template-columns: 1fr;
+      }
+
+      .sidebar {
+        position: relative;
+        height: auto;
+        border-right: none;
+        border-bottom: 1px solid #f1d6d6;
+      }
+
+      .quick-cards {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .content {
+        padding: 18px;
+      }
+
+      .row {
+        flex-direction: column;
+        gap: 0;
+      }
+
+      .top-header h2 {
+        font-size: 22px;
+      }
+
+      .card {
+        padding: 18px;
+      }
+    }
+    .campaign-options {
+  margin-top: 16px;
+}
+
+.checkbox-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 600;
+  color: #444;
+  cursor: pointer;
+}
+
+.checkbox-wrap input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--primary);
+}
+
+.department-select-wrap {
+  margin-top: 14px;
+}
+
+select:disabled,
+input:disabled {
+  background: #f3f3f3;
+  color: #888;
+  cursor: not-allowed;
+}
+
+    select:disabled,
+    input:disabled {
+      background: #f3f3f3;
+      color: #888;
+      cursor: not-allowed;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-logo">AI</div>
+        <div class="brand-text">
+          <h1>Admin Panel</h1>
+          <p>Instructor Availability System</p>
+        </div>
+      </div>
+
+      <div class="nav-title">Navigation</div>
+      <button class="nav-btn active" onclick="showSection(0, this)">Add Course</button>
+      <button class="nav-btn" onclick="showSection(1, this)">Start Campaigns</button>
+      <button class="nav-btn" onclick="showSection(2, this)">Dashboard</button>
+    </aside>
+
+    <main class="content">
+      <div class="top-header">
+        <h2>Instructor Availability Admin Access</h2>
+
+      </div>
+
+
+
+      <!-- SECTION 1 -->
+      <section class="section active">
+        <div class="card">
+          <h3>Add Course</h3>
+          <div class="card-subtext">
+            Add a course with term, department, course information, and optional instructor details.
+          </div>
+
+          <div class="row">
+            <div>
+              <label for="termId">Term ID</label>
+              <input id="termId" placeholder="e.g., 2025FALL" />
+            </div>
+            <div>
+              <label for="department">Department</label>
+              <input id="department" placeholder="e.g., Computer Science" />
+            </div>
+          </div>
+
+          <div class="row">
+            <div>
+              <label for="courseId">Course ID</label>
+              <input id="courseId" placeholder="e.g., CS450" />
+            </div>
+            <div>
+              <label for="courseName">Course Name</label>
+              <input id="courseName" placeholder="e.g., Advanced Algorithms" />
+            </div>
+          </div>
+
+          <div class="row">
+            <div>
+              <label for="instructorId">Instructor ID (optional)</label>
+              <select id="instructorId">
+                <option value="">Select instructor</option>
+              </select>
+            </div>
+            <div>
+              <label for="targetMode">Target Mode</label>
+              <select id="targetMode" onchange="toggleInstructorField()">
+                <option value="assigned">Assigned (Instructor known)</option>
+                <option value="department">Department Broadcast (Instructor unknown)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="button-row">
+            <button class="action-btn primary-btn" onclick="addCourse()">Add Course</button>
+          </div>
+
+          <div class="status" id="addCourseStatus">Status: waiting</div>
+        </div>
+      </section>
+
+      <!-- SECTION 2 -->
+      <section class="section">
+        <div class="card">
+          <h3>Manage Availability Requests</h3>
+          <div class="card-subtext">
+            Launch assigned campaigns, department broadcasts, delta updates, and reminder messages.
+          </div>
+
+          <label for="campaignTerm">Term ID for campaign</label>
+<input id="campaignTerm" placeholder="e.g., 2025FALL" />
+
+<div class="campaign-options">
+  <label class="checkbox-wrap">
+    <input type="checkbox" id="departmentBroadcastCheck" onchange="toggleDepartmentDropdown()" />
+    <span>Department Broadcast</span>
+  </label>
+</div>
+
+<div class="department-select-wrap">
+  <label for="campaignDepartment">Select Department</label>
+  <select id="campaignDepartment" disabled>
+    <option value="">Select department</option>
+  </select>
+</div>
+
+          <div class="button-row">
+            <button class="action-btn primary-btn" onclick="startAssignedCampaign()">Request Availability (Assigned Courses)</button>
+           <button class="action-btn secondary-btn" onclick="startDepartmentBroadcast()">
+  Request Availability (Open Courses)
+</button>
+            <button class="action-btn secondary-btn" onclick="updateDelta()">Send Requests for New Courses</button>
+            <button class="action-btn secondary-btn" onclick="sendReminders()">Send Reminder Emails </button>
+          </div>
+
+          <div class="status" id="campaignStatus">Status: waiting</div>
+        </div>
+      </section>
+
+      <!-- SECTION 3 -->
+      <section class="section">
+        <div class="card">
+          <h3>Dashboard</h3>
+          <div class="card-subtext">
+            Open the PBI dashboard to monitor availability activity and campaign progress.
+          </div>
+
+          <div class="dashboard-box">
+            <h4>Availability Dashboard</h4>
+            <p>Open your connected dashboard in a new tab.</p>
+            <button class="dashboard-btn" onclick="openDashboard()">View Dashboard</button>
+          </div>
+
+          <div class="status" id="dashboardStatus">Dashboard: not opened</div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const navButtons = document.querySelectorAll('.nav-btn');
+    const sections = document.querySelectorAll('.section');
+
+    function showSection(index, btn) {
+      sections.forEach((section, i) => {
+        section.classList.toggle('active', i === index);
+      });
+
+      navButtons.forEach((button, i) => {
+        button.classList.toggle('active', i === index);
+      });
+    }
+
+    function toggleInstructorField() {
+      const targetMode = document.getElementById("targetMode");
+      const instructorField = document.getElementById("instructorId");
+
+      if (!targetMode || !instructorField) return;
+
+      if (targetMode.value === "department") {
+        instructorField.value = "";
+        instructorField.disabled = true;
+      } else {
+        instructorField.disabled = false;
+      }
+    }
+
+    // run once when page loads
+    window.addEventListener("DOMContentLoaded", () => {
+      toggleInstructorField();
+    });
+  </script>
+
+  <script src="./app.js"></script>
+</body>
+
+</html>

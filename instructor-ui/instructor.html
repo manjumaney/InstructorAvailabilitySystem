@@ -1,0 +1,316 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Instructor Availability</title>
+  <style>
+    :root{
+      --primary:#c62828;
+      --primary-dark:#a91f1f;
+      --primary-light:#fdecec;
+      --primary-soft:#fff7f7;
+      --border:#efcaca;
+      --border-soft:#f4dede;
+      --text:#2b2b2b;
+      --muted:#6f6f6f;
+      --white:#ffffff;
+      --shadow:0 10px 30px rgba(198,40,40,0.08);
+      --radius:18px;
+      --radius-sm:12px;
+    }
+
+    *{
+      box-sizing:border-box;
+    }
+
+    body{
+      margin:0;
+      font-family:Arial, sans-serif;
+      background:
+        radial-gradient(circle at top right, #ffe4e4 0%, transparent 20%),
+        linear-gradient(180deg, #fffdfd 0%, #fff5f5 100%);
+      color:var(--text);
+      min-height:100vh;
+      padding:32px 18px;
+    }
+
+    .page-wrap{
+      max-width:900px;
+      margin:0 auto;
+    }
+
+    .hero{
+      background:rgba(255,255,255,0.92);
+      border:1px solid var(--border-soft);
+      border-radius:24px;
+      box-shadow:var(--shadow);
+      padding:28px 26px;
+      margin-bottom:20px;
+    }
+
+    .hero h2{
+      margin:0;
+      font-size:30px;
+      color:var(--primary);
+    }
+
+    .hero p{
+      margin:8px 0 0;
+      color:var(--muted);
+      font-size:15px;
+      line-height:1.5;
+    }
+
+    .card{
+      background:var(--white);
+      border:1px solid var(--border-soft);
+      border-radius:var(--radius);
+      padding:18px;
+      margin:14px 0;
+      box-shadow:var(--shadow);
+    }
+
+    h3{
+      margin:0 0 8px;
+      color:var(--primary);
+      font-size:20px;
+    }
+
+    label{
+      display:block;
+      margin-top:14px;
+      margin-bottom:8px;
+      font-weight:700;
+      color:#444;
+      font-size:14px;
+    }
+
+    select,input{
+      width:100%;
+      padding:13px 14px;
+      margin-top:0;
+      border:1px solid var(--border);
+      border-radius:12px;
+      background:#fffdfd;
+      font-size:14px;
+      outline:none;
+      transition:0.2s ease;
+    }
+
+    select:focus,
+    input:focus{
+      border-color:var(--primary);
+      box-shadow:0 0 0 4px rgba(198,40,40,0.09);
+      background:#fff;
+    }
+
+    button{
+      margin-top:4px;
+      padding:13px 18px;
+      cursor:pointer;
+      border:none;
+      border-radius:12px;
+      background:var(--primary);
+      color:white;
+      font-size:14px;
+      font-weight:700;
+      transition:0.2s ease;
+      box-shadow:0 8px 18px rgba(198,40,40,0.15);
+    }
+
+    button:hover{
+      background:var(--primary-dark);
+      transform:translateY(-1px);
+    }
+
+    button:disabled{
+      opacity:0.7;
+      cursor:not-allowed;
+      transform:none;
+    }
+
+    .ok{
+      background:#f5fff5;
+      border:1px solid #bfe8bf;
+      padding:12px 14px;
+      border-radius:12px;
+      color:#226622;
+      line-height:1.5;
+    }
+
+    .err{
+      background:#fff1f1;
+      border:1px solid #efb8b8;
+      padding:12px 14px;
+      border-radius:12px;
+      color:#a12a2a;
+      line-height:1.5;
+    }
+
+    .muted{
+      color:var(--muted);
+      font-size:13px;
+      margin-top:10px;
+      line-height:1.5;
+    }
+
+    #status{
+      font-size:15px;
+    }
+
+    #submitStatus{
+      margin-top:14px;
+    }
+
+    .footer-note{
+      text-align:center;
+      color:#8a8a8a;
+      font-size:12px;
+      margin-top:18px;
+    }
+
+    @media (max-width:700px){
+      body{
+        padding:18px 12px;
+      }
+
+      .hero{
+        padding:22px 18px;
+      }
+
+      .hero h2{
+        font-size:24px;
+      }
+
+      .card{
+        padding:16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-wrap">
+    <div class="hero">
+      <h2>Instructor Availability Form</h2>
+      <p>Please review your requested courses, choose your availability, and submit your response.</p>
+    </div>
+
+    <div id="status" class="card">Loading…</div>
+    <div id="formArea"></div>
+
+    <div class="footer-note">Instructor Availability System</div>
+  </div>
+
+<script>
+const API_BASE = "https://instructor-api-808914290940.us-central1.run.app"; 
+
+function qs(name){ return new URLSearchParams(location.search).get(name); }
+const token = qs("token");
+
+async function getTokenInfo() {
+  const res = await fetch(`${API_BASE}/r/${token}`);
+  const ct = (res.headers.get("content-type") || "").toLowerCase();
+
+  // If API returns HTML (like Express 404 page)
+  if (!ct.includes("application/json")) {
+    await res.text().catch(()=>{});
+    throw new Error(`API error (${res.status}). Not JSON. URL: ${API_BASE}/r/${token}`);
+  }
+
+  const data = await res.json();
+  if (!res.ok) throw new Error(data.error || "Failed");
+  return data;
+}
+
+function renderForm(info){
+  document.getElementById("status").innerHTML =
+    `<div class="ok">Token valid ✅ Term: <b>${info.term_id}</b> · Instructor: <b>${info.instructor_id}</b></div>
+     <div class="muted">Fill availability for at least one course, then submit.</div>`;
+
+  const coursesHtml = info.course_ids_requested.map(cid => `
+    <div class="card">
+      <h3>${cid}</h3>
+
+      <label>Availability</label>
+      <select id="a_${cid}">
+        <option value="">Select</option>
+        <option value="available">Available</option>
+        <option value="not_available">Not Available</option>
+        
+      </select>
+
+      <label>Comments (optional)</label>
+      <input id="c_${cid}" placeholder="Optional comment"/>
+    </div>
+  `).join("");
+
+ 
+  document.getElementById("formArea").innerHTML = `
+    ${coursesHtml}
+    <div class="card">
+      <button id="submitBtn" onclick="submitResp()">Submit</button>
+      <div id="submitStatus"></div>
+    </div>
+  `;
+
+  window._courseIds = info.course_ids_requested;
+}
+
+async function submitResp(){
+  const submitStatus = document.getElementById("submitStatus");
+  const btn = document.getElementById("submitBtn");
+
+  const responses = window._courseIds.map(cid => ({
+    course_id: cid,
+    availability: document.getElementById(`a_${cid}`).value,
+    comments: document.getElementById(`c_${cid}`).value
+  })).filter(r => r.availability);
+
+  if(responses.length === 0){
+    submitStatus.innerHTML = `<div class="err">Select availability for at least one course.</div>`;
+    return;
+  }
+
+ 
+  const payload = { token, responses };
+
+  try{
+    btn.disabled = true;
+    btn.textContent = "Submitting...";
+
+    const res = await fetch(`${API_BASE}/submitResponse`,{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify(payload)
+    });
+
+    const data = await res.json().catch(()=>({}));
+    if(!res.ok){
+      submitStatus.innerHTML = `<div class="err">${data.error || "Submit failed"}</div>`;
+      btn.disabled = false;
+      btn.textContent = "Submit";
+      return;
+    }
+
+    submitStatus.innerHTML = `<div class="ok">Submitted ✅ Thank you!</div>`;
+    btn.textContent = "Submitted";
+  }catch(e){
+    submitStatus.innerHTML = `<div class="err">${e.message || "Submit failed"}</div>`;
+    btn.disabled = false;
+    btn.textContent = "Submit";
+  }
+}
+
+(async ()=>{
+  try{
+    if(!token) throw new Error("Missing token in URL (?token=...)");
+    const info = await getTokenInfo();
+    renderForm(info);
+  }catch(e){
+    document.getElementById("status").innerHTML = `<div class="err">${e.message}</div>`;
+  }
+})();
+</script>
+</body>
+</html>
