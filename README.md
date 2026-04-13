@@ -49,7 +49,7 @@ The system has three main parts:
 
 * Displays real-time insights:
 
-![Dashboard](assets/Dashboard.png)
+![Dashboard](assests/Dashboard.png)
 
   * Response rate
   * Pending responses
