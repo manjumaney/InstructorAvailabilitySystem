@@ -28,36 +28,84 @@ Interactive Email-Based Instructor Availability System that automates scheduling
 
 ## Setup Instructions
 
-1. Clone Repository
+### 1. Clone the repository
+
+```bash
 git clone <your-repo-url>
 cd INSTRUCTORAVAILABILITYSYSTEM
+```
 
-2. Install Dependencies
+### 2. Install dependencies
+
+Install dependencies in the root project, admin UI, and cloud functions folders.
+
+```bash
 npm install
 cd admin-ui
 npm install
 cd cloud-functions
 npm install
+cd ../..
+```
 
-3. Setup Google Cloud
-- Enable Gmail API
-- Enable Google Sheets API
-- Create Service Account
-- Download JSON key
-- Place in admin-ui/cloud-functions/
+### 3. Set up Google Cloud
 
-4. Configure Environment
-Create .env file inside cloud-functions:
+In Google Cloud Console:
+
+* Enable the Gmail API
+* Enable the Google Sheets API
+* Create a service account
+* Download the JSON key file
+
+Place the JSON key file inside:
+
+```text
+admin-ui/cloud-functions/
+```
+
+### 4. Configure environment variables
+
+Create a `.env` file inside `admin-ui/cloud-functions/` and add:
+
+```env
 GOOGLE_APPLICATION_CREDENTIALS=./your-service-account.json
+```
 
-5. Run Firebase
+Replace `your-service-account.json` with the actual filename of your downloaded key.
+
+If your project also uses deployed URLs and Gmail credentials, include them as needed:
+
+```env
+FORM_BASE_URL=...
+API_BASE_URL=...
+SENDER_EMAIL=...
+GMAIL_CLIENT_ID=...
+GMAIL_CLIENT_SECRET=...
+GMAIL_REFRESH_TOKEN=...
+```
+
+### 5. Run Firebase
+
+Log in to Firebase and start the emulator:
+
+```bash
 firebase login
 firebase emulators:start
+```
 
-6. Run Application
-Open:
+### 6. Run the application
+
+Open the following files in the browser:
+
+```text
 admin-ui/index.html
 instructor-ui/index.html
+```
+
+## Notes
+
+* Make sure the required Google APIs are enabled before running the project.
+* If running the deployed version, update the frontend API base URL to the live backend URL.
 
 ---
 
