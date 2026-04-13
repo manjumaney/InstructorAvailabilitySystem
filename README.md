@@ -6,15 +6,11 @@ This project was developed as part of my **Master’s coursework**, with the goa
 
 Traditionally, this process is handled through manual emails, spreadsheets, and follow-ups, which is time-consuming, error-prone, and difficult to track. I wanted to build a system that automates this entire workflow and provides real-time visibility into responses.
 
----
-
 ## What the project does?
 
 The **Instructor Availability System** is a web-based application that allows administrators to send availability requests to instructors and track responses in a structured and automated way.
 
 Instead of back-and-forth emails, instructors can respond using simple buttons (Available / Not Available), and their responses are instantly recorded and reflected in a dashboard.
-
----
 
 ## Key idea
 
@@ -25,7 +21,6 @@ The main idea behind this project was to:
 * Provide admins with **real-time insights** for decision-making
 * Build a system that is **scalable and easy to manage**
 
----
 
 ## How it works (high-level)
 
@@ -60,8 +55,6 @@ The system has three main parts:
   * Instructor availability status
 * Helps in quick scheduling decisions
 
----
-
 ## Email System
 
 One of the most interesting parts of this project is the email system:
@@ -71,7 +64,6 @@ One of the most interesting parts of this project is the email system:
 * Simulates interactive behavior without requiring full AMP integration
 * Sends confirmation after response submission
 
----
 
 ## Technologies used
 
@@ -82,7 +74,6 @@ One of the most interesting parts of this project is the email system:
 * **Hosting:** Firebase Hosting
 * **Analytics:** Power BI
 
----
 
 ## Why this project matters?
 
@@ -96,11 +87,9 @@ This project demonstrates:
 
 It also highlights how simple tools like Google Sheets can be transformed into a functional backend when combined with cloud services.
 
----
-
 ## Demo Video
 
-[Watch Demo Video]([https://drive.google.com/your-link](https://drive.google.com/file/d/1_G8uk61RhlokLqJZEVuWqBEv-mmKpg4T/view?usp=drive_link])
+[![Watch Demo](https://img.youtube.com/vi/YOUR_VIDEO_ID/0.jpg)](https://youtu.be/-yFFRDdhZAk)
 
 The demo video shows:
 
@@ -108,8 +97,6 @@ The demo video shows:
 * Email being sent to instructors
 * Instructor submitting responses
 * Dashboard updating in real-time
-
----
 
 ## Setup Instructions
 
@@ -198,13 +185,10 @@ instructor-ui/index.html
 - No login required
 - Secure mapping of responses
 
----
 
 ## Known Limitations
 - AMP email not fully implemented
 - Requires API permissions setup
-
----
 
 ## Future Improvements
 - Full AMP email support
@@ -212,7 +196,6 @@ instructor-ui/index.html
 - Improved UI/UX
 - Advanced analytics
 
----
 
 ## References
 Google Cloud: https://cloud.google.com/
@@ -223,13 +206,9 @@ Power BI: https://powerbi.microsoft.com/
 AMP Email: https://amp.dev/documentation/guides-and-tutorials/learn/email/
 Node.js: https://nodejs.org/
 
----
-
-## Final Note
 
 Overall, this project transformed a manual, repetitive process into an **automated, trackable, and scalable system**. It was a great opportunity to apply both technical and design thinking skills to a practical university use case.
 
----
 
 ## Authors
 - MANJUMANEY CHOODALI MANEY
