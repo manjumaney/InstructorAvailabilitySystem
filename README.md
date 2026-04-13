@@ -1,28 +1,113 @@
 # Instructor Availability System
 
-## Overview
-Interactive Email-Based Instructor Availability System that automates scheduling using email workflows, token-based responses, and a Power BI dashboard.
+## Project Overview
+
+This project was developed as part of my **Master’s coursework**, with the goal of solving a very real problem in academic scheduling — collecting instructor availability efficiently.
+
+Traditionally, this process is handled through manual emails, spreadsheets, and follow-ups, which is time-consuming, error-prone, and difficult to track. I wanted to build a system that automates this entire workflow and provides real-time visibility into responses.
 
 ---
 
-## Features
-- Assigned and Broadcast Campaigns
-- Dynamic Course Addition
-- One-click Email Responses
-- Token-based Authentication (no login)
-- Multiple responses allowed (latest is considered)
-- Automated Reminder Emails
-- Confirmation Email after response
-- Real-time Dashboard (Power BI)
+## What the project does?
+
+The **Instructor Availability System** is a web-based application that allows administrators to send availability requests to instructors and track responses in a structured and automated way.
+
+Instead of back-and-forth emails, instructors can respond using simple buttons (Available / Not Available), and their responses are instantly recorded and reflected in a dashboard.
 
 ---
 
-## System Architecture
-- Frontend: HTML, JavaScript (Admin + Instructor UI)
-- Backend: Node.js + Firebase Cloud Functions
-- Database: Google Sheets
-- Email Service: Gmail API
-- Dashboard: Power BI
+## Key idea
+
+The main idea behind this project was to:
+
+* Replace manual email communication with **automated campaigns**
+* Allow instructors to respond quickly without friction
+* Provide admins with **real-time insights** for decision-making
+* Build a system that is **scalable and easy to manage**
+
+---
+
+## How it works (high-level)
+
+The system has three main parts:
+
+### 1. Admin Panel
+
+* Admin can add courses (assigned or unassigned instructors)
+* Start different types of campaigns:
+
+  * Assigned campaigns
+  * Broadcast campaigns (for unknown instructors)
+* Send reminder emails
+* Monitor system through dashboard
+
+### 2. Instructor Interface
+
+* Instructors receive an email with response options
+* They can:
+
+  * Click **Available / Not Available**
+  * Open a full form if needed
+* Multiple responses are allowed, but only the **latest response is considered**
+
+### 3. Dashboard (Power BI)
+
+* Displays real-time insights:
+
+  * Response rate
+  * Pending responses
+  * Course-wise availability
+  * Instructor availability status
+* Helps in quick scheduling decisions
+
+---
+
+## Email System
+
+One of the most interesting parts of this project is the email system:
+
+* Supports structured HTML emails with quick response buttons
+* Designed with fallback support for different email clients
+* Simulates interactive behavior without requiring full AMP integration
+* Sends confirmation after response submission
+
+---
+
+## Technologies used
+
+* **Frontend:** HTML, CSS, JavaScript
+* **Backend:** Node.js (Cloud Functions)
+* **Database:** Google Sheets (via API)
+* **Email Service:** Gmail API
+* **Hosting:** Firebase Hosting
+* **Analytics:** Power BI
+
+---
+
+## Why this project matters?
+
+This project demonstrates:
+
+* Real-world problem solving
+* Full-stack system design
+* API integration (Google services)
+* Automation of workflows
+* Data-driven decision support
+
+It also highlights how simple tools like Google Sheets can be transformed into a functional backend when combined with cloud services.
+
+---
+
+## Demo Video
+
+[Watch Demo Video]([https://drive.google.com/your-link](https://drive.google.com/file/d/1_G8uk61RhlokLqJZEVuWqBEv-mmKpg4T/view?usp=drive_link))
+
+The demo video shows:
+
+* Admin creating courses and campaigns
+* Email being sent to instructors
+* Instructor submitting responses
+* Dashboard updating in real-time
 
 ---
 
@@ -107,16 +192,6 @@ instructor-ui/index.html
 * Make sure the required Google APIs are enabled before running the project.
 * If running the deployed version, update the frontend API base URL to the live backend URL.
 
----
-
-## Usage Flow
-1. Admin creates campaign
-2. Emails sent via Gmail API
-3. Instructor responds
-4. Data stored in Google Sheets
-5. Dashboard updates in Power BI
-
----
 
 ## Security
 - Token-based access
@@ -147,6 +222,12 @@ Firebase: https://firebase.google.com/
 Power BI: https://powerbi.microsoft.com/
 AMP Email: https://amp.dev/documentation/guides-and-tutorials/learn/email/
 Node.js: https://nodejs.org/
+
+---
+
+## Final Note
+
+Overall, this project transformed a manual, repetitive process into an **automated, trackable, and scalable system**. It was a great opportunity to apply both technical and design thinking skills to a practical university use case.
 
 ---
 
