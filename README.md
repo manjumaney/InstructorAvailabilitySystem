@@ -100,7 +100,7 @@ It also highlights how simple tools like Google Sheets can be transformed into a
 
 ## Demo Video
 
-[Watch Demo Video]([https://drive.google.com/your-link](https://drive.google.com/file/d/1_G8uk61RhlokLqJZEVuWqBEv-mmKpg4T/view?usp=drive_link))
+[Watch Demo Video]([https://drive.google.com/your-link](https://drive.google.com/file/d/1_G8uk61RhlokLqJZEVuWqBEv-mmKpg4T/view?usp=drive_link])
 
 The demo video shows:
 
