@@ -10,7 +10,7 @@ Traditionally, this process is handled through manual emails, spreadsheets, and 
 
 The **Instructor Availability System** is a web-based application that allows administrators to send availability requests to instructors and track responses in a structured and automated way.
 
-Instead of back-and-forth emails, instructors can respond using simple buttons (Available / Not Available), and their responses are instantly recorded and reflected in a dashboard.
+Instead of back-and-forth emails, instructors can respond using simple buttons (Available / Not Available), and their responses are instantly recorded and reflected in a dashboard. 
 
 ## Key idea
 
@@ -21,6 +21,7 @@ The main idea behind this project was to:
 * Provide admins with **real-time insights** for decision-making
 * Build a system that is **scalable and easy to manage**
 
+Note: The live dashboard and database are restricted due to access policies. Screenshots/Video are provided for demonstration.
 
 ## How it works (high-level)
 
