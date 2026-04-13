@@ -89,7 +89,7 @@ It also highlights how simple tools like Google Sheets can be transformed into a
 
 ## Demo Video
 
-[![Watch Demo](https://img.youtube.com/vi/YOUR_VIDEO_ID/0.jpg)](https://youtu.be/-yFFRDdhZAk)
+[![Watch Demo]](https://youtu.be/-yFFRDdhZAk)
 
 The demo video shows:
 
