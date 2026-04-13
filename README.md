@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-This project was developed as part of my **Master’s coursework**, with the goal of solving a very real problem in academic scheduling — collecting instructor availability efficiently.
+This project was developed as part of my **Master’s Software Development project**, with the goal of solving a very real problem in academic scheduling — collecting instructor availability efficiently.
 
 Traditionally, this process is handled through manual emails, spreadsheets, and follow-ups, which is time-consuming, error-prone, and difficult to track. I wanted to build a system that automates this entire workflow and provides real-time visibility into responses.
 
