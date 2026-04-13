@@ -49,6 +49,8 @@ The system has three main parts:
 
 * Displays real-time insights:
 
+![Dashboard](assets/Dashboard.png)
+
   * Response rate
   * Pending responses
   * Course-wise availability
