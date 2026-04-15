@@ -1,6 +1,7 @@
 # Instructor Availability System
 
-## Live Demo: https://instructoravailabilitysystem.web.app/
+Live Demo: https://instructoravailabilitysystem.web.app/
+
 ## Project Overview
 
 This project was developed as part of my **Master’s Software Development project**, with the goal of solving a very real problem in academic scheduling — collecting instructor availability efficiently.
